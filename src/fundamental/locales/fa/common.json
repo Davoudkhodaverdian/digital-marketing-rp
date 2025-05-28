@@ -1,5 +1,5 @@
 {
-    "login_username": {
+    "login": {
         "form": {
             "title": "ورود به پنل",
             "inputs": {
@@ -20,9 +20,46 @@
             }
         }
     },
-    "login_otp": {},
+    "login_otp": {
+        "form": {
+            "title": "کد ارسال شده به موبایل را وارد کنید",
+            "inputs": {
+                "digit": {
+                    "validation": {
+                        "required": "الزامی است",
+                        "only_digits": "لطفا فقط عدد وارد کنید"
+                    }
+                }
+            },
+            "button": {
+                "title": "ورود"
+            }
+        }
+    },
+    "login_username": {
+        "form": {
+            "title": "رمز عبور خود را وارد کنید",
+            "inputs": {
+                "password": {
+                    "title": "رمز عبور",
+                    "placeholder": "رمز عبور خود را وارد کنید",
+                    "validation": {
+                        "min": "رمز عبور بیش از حد کوتاه است",
+                        "required": "رمز عبور الزامی است"
+                    }
+                }
+            },
+            "button": {
+                "title": "ورود"
+            }
+        }
+    },
     "hello": "سلام",
-     "about": {
+    "about": {
         "title": "درباره ما"
+    },
+    "loading": {
+        "send_data": "در حال ارسال اطلاعات ...",
+        "get_data": "در حال دریافت اطلاعات ..."
     }
 }

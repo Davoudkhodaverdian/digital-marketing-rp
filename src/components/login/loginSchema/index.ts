@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 import { useTranslations } from 'next-intl';
 
 export const useLoginSchema = () => {
-  const t = useTranslations('login_username.form.inputs.text.validation');
+  const t = useTranslations('login.form.inputs.text.validation');
 
   return Yup.object().shape({
     text: Yup.string()
@@ -12,7 +12,7 @@ export const useLoginSchema = () => {
         const usernameRegex = /^[a-zA-Z][a-zA-Z0-9]{3,19}$/;
 
         // phone is not valid
-        if (/^09/.test(value) && !phoneRegex.test(value)) {
+        if (/^0/.test(value) && !phoneRegex.test(value)) {
           return this.createError({ message: t('phone_invalid') });
         } else if (!phoneRegex.test(value)){
           // usename is not valid

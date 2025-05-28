@@ -1,28 +1,65 @@
 {
-    "login_username": {
-        "form": {
-            "title": "Login to the panel",
-            "inputs": {
-                "text": {
-                    "title": "نام کاربری یا شماره موبایل",
-                    "placeholder": "مثال ۰۹۱۲... یا ali912",
-                    "validation": {
-                        "required": "This field is required.",
-                        "invalid_identifier": "Please enter a valid username or mobile number.",
-                        "username_invalid": "Username must start with a letter and contain only letters and numbers.",
-                        "username_length": "Username must be between 4 and 20 characters.",
-                        "phone_invalid": "Phone number must start with 09 and be exactly 11 digits."
-                    }
-                }
-            },
-            "button": {
-                "title": "ادامه"
-            }
+  "login": {
+    "form": {
+      "title": "Login to the panel",
+      "inputs": {
+        "text": {
+          "title": "Username or mobile number",
+          "placeholder": "e.g. 0912... or ali912",
+          "validation": {
+            "required": "This field is required.",
+            "invalid_identifier": "Please enter a valid username or mobile number.",
+            "username_invalid": "Username must start with a letter and contain only letters and numbers.",
+            "username_length": "Username must be between 4 and 20 characters.",
+            "phone_invalid": "Phone number must start with 09 and be exactly 11 digits."
+          }
         }
-    },
-    "login_otp": {},
-    "hello": "hello",
-    "about": {
-        "title": "About us"
+      },
+      "button": {
+        "title": "Continue"
+      }
     }
+  },
+  "login_otp": {
+    "form": {
+      "title": "کد ارسال شده به موبایل را وارد کنید",
+      "inputs": {
+        "digit": {
+          "validation": {
+            "required": "الزامی است",
+            "only_digits": "لطفا فقط عدد وارد کنید"
+          }
+        }
+      },
+      "button": {
+        "title": "ورود"
+      }
+    }
+  },
+  "login_username": {
+    "form": {
+      "title": "رمز عبور خود را وارد کنید",
+      "inputs": {
+        "password": {
+          "title": "رمز عبور",
+          "placeholder": "رمز عبور خود را وارد کنید",
+          "validation": {
+            "min": "رمز عبور بیش از حد کوتاه است",
+            "required": "رمز عبور الزامی است"
+          }
+        }
+      },
+      "button": {
+        "title": "ورود"
+      }
+    }
+  },
+  "hello": "hello",
+  "about": {
+    "title": "About us"
+  },
+  "loading": {
+    "send_data": "در حال ارسال اطلاعات ...",
+    "get_data": "در حال دریافت اطلاعات ..."
+  }
 }

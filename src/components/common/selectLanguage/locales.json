@@ -1,0 +1,12 @@
+    [
+        {
+            "code": "en",
+            "label": "English",
+            "flag": "/images/united-kingdom-logo.svg"
+        },
+        {
+            "code": "fa",
+            "label": "فارسی",
+            "flag": "/images/farsi-logo.svg"
+        }
+    ]
