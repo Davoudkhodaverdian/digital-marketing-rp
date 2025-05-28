@@ -1,5 +1,6 @@
 // app/api/auth/start/route.ts
 import { NextResponse } from 'next/server';
+import users from '@/fundamental/users/users.json';
 
 export async function POST(request: Request) {
     try {
@@ -9,15 +10,23 @@ export async function POST(request: Request) {
         const isPhone = phoneRegex.test(text);
         const isUsername = usernameRegex.test(text);
         if (isPhone) {
-            // It's a mobile number — a code will be sent
-            return NextResponse.json({ code: 201, status: 'otp_sent', expiresIn: 120, message: "text is a correct phone, otp must be sent" }) // 2 minute
+            // It's a mobile number    
+            if (!users.find(user => user.phone === text)) {
+                return NextResponse.json({ code: 404, status: 'failed', expiresIn: 120, message: { en: "user is not found", fa: "کاربر مورد نظر یافت نشد." } });
+            }
+            // It's a mobile number of user found — a code will be sent for 2 minute 
+            return NextResponse.json({ code: 201, status: 'otp_sent', expiresIn: 120, message: "text is a correct phone, otp must be sent" })
         } else if (isUsername) {
-            // Username detected — the password must be entered
+            // It's a mobile Username
+            if (!users.find(user => user.username === text)) {
+                return NextResponse.json({ code: 404, status: 'failed', expiresIn: 120, message: { en: "user is not found", fa: "کاربر مورد نظر یافت نشد." } });
+            }
+            // Username of user found — the password must be entered
             return NextResponse.json({ code: 201, status: 'password_required', message: "text is a correct username, password must be entered" })
         } else {
-            return NextResponse.json({ code: 401, status: 'failed', message: "username or phone is not sent correctly" })
+            return NextResponse.json({ code: 401, status: 'failed', message: { en: "username or phone is not sent correctly", fa: "نام کاربری یا شماره موبایل به درستی وارد نشده است." } })
         }
     } catch (error) {
-        return NextResponse.json({ code: 500, status: 'server_error', message: "something went wrong" })
+        return NextResponse.json({ code: 500, status: 'server_error', message: { en: "something went wrong", fa: "متاسفانه خطایی رخ داده است." } })
     }
 }

@@ -6,7 +6,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import customFetch from '@/fundamental/customFetch';
 import { ILoginStart } from '@/fundamental/models/loginStart';
 import { useRouter } from 'next/navigation';
-import LoadingProcess from './loadingProcess';
+import LoadingProcess from '../common/loadingProcess';
 
 const Login: React.FC = () => {
     const t = useTranslations('login');
@@ -21,9 +21,9 @@ const Login: React.FC = () => {
             setLoading(false);
             console.log(response);
             if (response?.status === "password_required") {
-                router?.push('/login-username')
+                router?.push(`/login-username?username=${data?.text}`)
             } else if (response?.status === "otp_sent") {
-                router?.push('/login-otp')
+                router?.push(`/login-otp?phone=${data?.text}`)
             }
         } catch (error) {
             console.log(error)
