@@ -18,7 +18,10 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
-      <body>
+      <body
+        // dir={locale === 'fa' ? 'rtl' : 'ltr'}
+        dir={'rtl'}
+      >
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
       </body>
     </html>

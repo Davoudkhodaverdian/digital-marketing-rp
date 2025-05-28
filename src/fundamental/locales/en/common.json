@@ -1,19 +1,28 @@
 {
     "login_username": {
-       "form":{
-        "title":"ورود به پنل",
-        "inputs":{
-           "username": {
-            "title":"نام کاربری یا شماره موبایل",
-            "placeholder":"مثال ۰۹۱۲... یا ali912"
-           } 
-        },
-        "button":{
-            "title":"ادامه"
+        "form": {
+            "title": "Login to the panel",
+            "inputs": {
+                "text": {
+                    "title": "نام کاربری یا شماره موبایل",
+                    "placeholder": "مثال ۰۹۱۲... یا ali912",
+                    "validation": {
+                        "required": "This field is required.",
+                        "invalid_identifier": "Please enter a valid username or mobile number.",
+                        "username_invalid": "Username must start with a letter and contain only letters and numbers.",
+                        "username_length": "Username must be between 4 and 20 characters.",
+                        "phone_invalid": "Phone number must start with 09 and be exactly 11 digits."
+                    }
+                }
+            },
+            "button": {
+                "title": "ادامه"
+            }
         }
-       }
     },
-    "login_otp": {
-    },
-    "hello":"hello"
+    "login_otp": {},
+    "hello": "hello",
+    "about": {
+        "title": "About us"
+    }
 }
