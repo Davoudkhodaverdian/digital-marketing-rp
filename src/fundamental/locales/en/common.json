@@ -1,0 +1,19 @@
+{
+    "login_username": {
+       "form":{
+        "title":"ورود به پنل",
+        "inputs":{
+           "username": {
+            "title":"نام کاربری یا شماره موبایل",
+            "placeholder":"مثال ۰۹۱۲... یا ali912"
+           } 
+        },
+        "button":{
+            "title":"ادامه"
+        }
+       }
+    },
+    "login_otp": {
+    },
+    "hello":"hello"
+}
