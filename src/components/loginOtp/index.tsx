@@ -1,26 +1,52 @@
 "use client"
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik } from 'formik';
 import { useLocale, useTranslations } from 'next-intl';
 import { ILoginOtp } from '@/fundamental/models/loginOtp';
 import { useLoginSchema } from './loginSchema';
 import LoginForm from './form';
-// import customFetch from '@/fundamental/customFetch';
+import { useRouter, useSearchParams } from 'next/navigation';
+import CodeProcess from './codeProcess';
+import { MobileCodeSituation } from '@/fundamental/models/mobileCodeSituation';
+import customFetch from '@/fundamental/customFetch';
+import LoadingProcess from '../common/loadingProcess';
+import { infoMessage, successMessage } from '@/fundamental/toast';
 // import { useRouter } from 'next/navigation';
 
 const LoginOtp: React.FC = () => {
     const t = useTranslations('login_otp');
     const locale = useLocale();
     const LoginSchema = useLoginSchema();
+    const searchParams = useSearchParams();
+    const phone = searchParams.get('phone');
+    const [mobileCode, setMobileCode] = useState<MobileCodeSituation>(!phone ? 'expired' : 'active');
+    const [loading, setLoading] = useState(false);
+    const handelMobileCode = (situation: MobileCodeSituation) => {
+        if (situation !== mobileCode) setMobileCode(situation);
+    }
+    const router = useRouter();
+    useEffect(() => {
+        if (!phone) router.push('/');
+
+    })
+
     // const router = useRouter();
     const handleSubmit = async (data: ILoginOtp) => {
         try {
-            // const response = await customFetch<ILoginOtp>('/???', data, { method: "POST" });
-            // console.log(response);
-            // if (response?.status === "password_required") {
-            //     router?.push('/login-with-password')
-            // }
+            if (mobileCode === 'expired') {
+                infoMessage(t('code_process.expire_message'))
+            }
+            const otp = `${data?.digit1}${data?.digit2}${data?.digit3}${data?.digit4}`;
+            setLoading(true);
+            const response = await customFetch<{ otp: string }>(`/auth/verify-otp?phone=${phone}`, { otp }, { method: "POST" });
+            setLoading(false);
+            if (response?.status === "successful") {
+                successMessage(response?.message[locale || 'fa'])
+            } else {
+                infoMessage(response?.message[locale || 'fa'])
+            }
         } catch (error) {
+            setLoading(false);
             console.log(error)
         }
     }
@@ -40,6 +66,8 @@ const LoginOtp: React.FC = () => {
                     <LoginForm errors={errors} touched={touched} setFieldValue={setFieldValue} />
                 )}
             </Formik>
+            {loading && <LoadingProcess />}
+            <CodeProcess mobileCode={mobileCode} handelMobileCode={handelMobileCode} />
         </section>
     )
 }

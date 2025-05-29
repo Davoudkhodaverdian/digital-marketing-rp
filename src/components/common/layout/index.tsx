@@ -1,6 +1,8 @@
 
 import React from "react";
 import SelectLanguage from "../selectLanguage";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface Props {
   children: React.ReactNode;
@@ -23,6 +25,7 @@ const LoginLayout: React.FC<Props> = ({ children }) => {
           <img className="" src="/images/architecture.png" alt="scope" width={708} height={708} />
         </figure>
       </section>
+      <ToastContainer />
     </main>
   );
 }

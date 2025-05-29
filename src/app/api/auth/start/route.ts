@@ -12,14 +12,14 @@ export async function POST(request: Request) {
         if (isPhone) {
             // It's a mobile number    
             if (!users.find(user => user.phone === text)) {
-                return NextResponse.json({ code: 404, status: 'failed', expiresIn: 120, message: { en: "user is not found", fa: "کاربر مورد نظر یافت نشد." } });
+                return NextResponse.json({ code: 404, status: 'failed', message: { en: "user with this phone is not found", fa: "کاربر با شماره موبایل مورد نظر یافت نشد." } });
             }
             // It's a mobile number of user found — a code will be sent for 2 minute 
             return NextResponse.json({ code: 201, status: 'otp_sent', expiresIn: 120, message: "text is a correct phone, otp must be sent" })
         } else if (isUsername) {
             // It's a mobile Username
             if (!users.find(user => user.username === text)) {
-                return NextResponse.json({ code: 404, status: 'failed', expiresIn: 120, message: { en: "user is not found", fa: "کاربر مورد نظر یافت نشد." } });
+                return NextResponse.json({ code: 404, status: 'failed',  message: { en: "user with this username is not found", fa: "کاربر با نام کاربری مورد نظر یافت نشد." } });
             }
             // Username of user found — the password must be entered
             return NextResponse.json({ code: 201, status: 'password_required', message: "text is a correct username, password must be entered" })

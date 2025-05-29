@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { ILoginUsename } from '@/fundamental/models/loginUsename';
 import customFetch from '@/fundamental/customFetch';
 import LoadingProcess from '../common/loadingProcess';
+import { infoMessage, successMessage } from '@/fundamental/toast';
 
 
 const LoginUsername: React.FC = () => {
@@ -28,9 +29,9 @@ const LoginUsername: React.FC = () => {
             setLoading(false);
             console.log(response);
             if (response?.status === "successful") {
-                alert(response?.message[locale || 'fa'])
+                successMessage(response?.message[locale || 'fa'])
             } else {
-                alert(response?.message[locale || 'fa'])
+                infoMessage(response?.message[locale || 'fa'])
             }
         } catch (error) {
             console.log(error)
@@ -57,10 +58,10 @@ const LoginUsername: React.FC = () => {
                         </div>
                         {errors.password && touched.password ? <div className='w-full font-400 block text-red-700'>{errors.password}</div> : null}
                         <button className='mt-[40px] w-full button' type="submit">{t('form.button.title')}</button>
-                        {loading && <LoadingProcess />}
                     </Form>
                 )}
             </Formik>
+            {loading && <LoadingProcess />}
         </section>
     )
 }

@@ -34,6 +34,15 @@
             "button": {
                 "title": "ورود"
             }
+        },
+        "code_process": {
+            "get_code_question": "کد را دریافت نکردید؟",
+            "send_code_duration": {
+                "start": "ارسال مجدد کد تا",
+                "end": "دیگر"
+            },
+            "send_code": "ارسال مجدد کد",
+            "expire_message":"کد شما منقضی شده است"
         }
     },
     "login_username": {

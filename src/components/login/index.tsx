@@ -7,6 +7,7 @@ import customFetch from '@/fundamental/customFetch';
 import { ILoginStart } from '@/fundamental/models/loginStart';
 import { useRouter } from 'next/navigation';
 import LoadingProcess from '../common/loadingProcess';
+import { infoMessage } from '@/fundamental/toast';
 
 const Login: React.FC = () => {
     const t = useTranslations('login');
@@ -24,6 +25,8 @@ const Login: React.FC = () => {
                 router?.push(`/login-username?username=${data?.text}`)
             } else if (response?.status === "otp_sent") {
                 router?.push(`/login-otp?phone=${data?.text}`)
+            } else {
+                infoMessage(response?.message[locale || 'fa'])
             }
         } catch (error) {
             console.log(error)

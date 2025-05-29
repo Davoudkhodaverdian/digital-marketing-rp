@@ -22,35 +22,44 @@
   },
   "login_otp": {
     "form": {
-      "title": "کد ارسال شده به موبایل را وارد کنید",
+      "title": "Enter the code sent to your mobile",
       "inputs": {
         "digit": {
           "validation": {
-            "required": "الزامی است",
-            "only_digits": "لطفا فقط عدد وارد کنید"
+            "required": "This field is required.",
+            "only_digits": "Please enter digits only."
           }
         }
       },
       "button": {
-        "title": "ورود"
+        "title": "Login"
       }
+    },
+    "code_process": {
+      "get_code_question": "Didn't receive the code?",
+      "send_code_duration": {
+        "start": "Please wait -",
+        "end": "remaining to resend the code"
+      },
+      "send_code": "Resend code",
+      "expire_message": "Your code has expired."
     }
   },
   "login_username": {
     "form": {
-      "title": "رمز عبور خود را وارد کنید",
+      "title": "Enter your password",
       "inputs": {
         "password": {
-          "title": "رمز عبور",
-          "placeholder": "رمز عبور خود را وارد کنید",
+          "title": "Password",
+          "placeholder": "Enter your password",
           "validation": {
-            "min": "رمز عبور بیش از حد کوتاه است",
-            "required": "رمز عبور الزامی است"
+            "min": "Password is too short.",
+            "required": "Password is required."
           }
         }
       },
       "button": {
-        "title": "ورود"
+        "title": "Login"
       }
     }
   },
@@ -59,7 +68,7 @@
     "title": "About us"
   },
   "loading": {
-    "send_data": "در حال ارسال اطلاعات ...",
-    "get_data": "در حال دریافت اطلاعات ..."
+    "send_data": "Sending data...",
+    "get_data": "Receiving data..."
   }
 }
