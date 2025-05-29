@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { useLoginSchema } from './loginSchema';
 import { useLocale, useTranslations } from 'next-intl';
-import customFetch from '@/fundamental/customFetch';
 import { ILoginStart } from '@/fundamental/models/loginStart';
 import { useRouter } from 'next/navigation';
 import LoadingProcess from '../common/loadingProcess';
 import { infoMessage } from '@/fundamental/toast';
+import { useLoginStart } from '@/fundamental/hooks/useLoginStart';
 
 const Login: React.FC = () => {
     const t = useTranslations('login');
@@ -15,19 +15,32 @@ const Login: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const locale = useLocale();
     const router = useRouter();
-    const handleSubmit = async (data: ILoginStart) => {
+    const loginStart = useLoginStart();
+    const handleSubmit = async (loginData: ILoginStart) => {
         try {
             setLoading(true);
-            const response = await customFetch<ILoginStart>('/auth/start', data, { method: "POST" });
-            setLoading(false);
-            console.log(response);
-            if (response?.status === "password_required") {
-                router?.push(`/login-username?username=${data?.text}`)
-            } else if (response?.status === "otp_sent") {
-                router?.push(`/login-otp?phone=${data?.text}`)
-            } else {
-                infoMessage(response?.message[locale || 'fa'])
-            }
+            loginStart.mutate(loginData,
+                {
+                    onSuccess: (data) => {
+                        setLoading(false);
+                        console.log(data);
+                        if (data?.status === "password_required") {
+                            router?.push(`/login-username?username=${loginData?.text}`)
+                        } else if (data?.status === "otp_sent") {
+                            router?.push(`/login-otp?phone=${loginData?.text}`)
+                        } else {
+                            infoMessage(data?.message[locale || 'fa'])
+                        }
+                    },
+                    onError: (error: any) => {
+                        setLoading(false);
+                        console.error("❌ Error:", error);
+                        console.error("❌ Error:", error?.message);
+                        if (error?.message) infoMessage(error?.message)
+                    },
+                }
+            );
+
         } catch (error) {
             console.log(error)
             setLoading(false);

@@ -4,9 +4,8 @@ import users from '@/fundamental/users/users.json';
 
 export async function POST(request: Request) {
     try {
-    const { otp } = await request.json()
-    const { searchParams } = new URL(request.url);
-    const phone = searchParams.get('phone');
+        const { otp, phone } = await request.json()
+
         if (!otp) {
             return NextResponse.json({ code: 401, status: 'failed', message: { en: "code is required", fa: "کد الزامی میباشد" } })
         } else if (otp.length !== 4) {
@@ -20,7 +19,7 @@ export async function POST(request: Request) {
         } else {
             return NextResponse.json({ code: 401, status: 'failed', message: { en: "code is incorrect", fa: "کد وارد شده صحیح نمیباشد." } })
         }
-    
+
     } catch (error) {
         return NextResponse.json({ code: 500, status: 'server_error', message: { en: "something went wrong", fa: "متاسفانه خطایی رخ داده است." } })
     }

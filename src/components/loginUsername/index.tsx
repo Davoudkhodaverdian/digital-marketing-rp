@@ -5,9 +5,9 @@ import { useLoginSchema } from './loginSchema';
 import { useLocale, useTranslations } from 'next-intl';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ILoginUsename } from '@/fundamental/models/loginUsename';
-import customFetch from '@/fundamental/customFetch';
 import LoadingProcess from '../common/loadingProcess';
 import { infoMessage, successMessage } from '@/fundamental/toast';
+import { useVerifyPassword } from '@/fundamental/hooks/useVerifyPassword';
 
 
 const LoginUsername: React.FC = () => {
@@ -15,24 +15,37 @@ const LoginUsername: React.FC = () => {
     const LoginSchema = useLoginSchema();
     const locale = useLocale();
     const searchParams = useSearchParams();
-    const username = searchParams.get('username');
+    const username = searchParams.get('username') || '';
     const router = useRouter();
+    const verifyPassword = useVerifyPassword();
     useEffect(() => {
         if (!username) router.push('/')
     })
     const [loading, setLoading] = useState(false);
 
-    const handleSubmit = async (data: ILoginUsename) => {
+    const handleSubmit = async (loginData: ILoginUsename) => {
         try {
             setLoading(true);
-            const response = await customFetch<ILoginUsename>(`/auth/verify-password?username=${username}`, data, { method: "POST" });
+            verifyPassword.mutate({ username, password: loginData?.password },
+                {
+                    onSuccess: (data) => {
+                        setLoading(false);
+                        if (data?.status === "successful") {
+                            successMessage(data?.message[locale || 'fa'])
+                        } else {
+                            infoMessage(data?.message[locale || 'fa'])
+                        }
+                    },
+                    onError: (error: any) => {
+                        setLoading(false);
+                        console.error("❌ Error:", error);
+                        console.error("❌ Error:", error?.message);
+                        if (error?.message) infoMessage(error?.message)
+                    },
+                }
+            );
             setLoading(false);
-            console.log(response);
-            if (response?.status === "successful") {
-                successMessage(response?.message[locale || 'fa'])
-            } else {
-                infoMessage(response?.message[locale || 'fa'])
-            }
+
         } catch (error) {
             console.log(error)
             setLoading(false);

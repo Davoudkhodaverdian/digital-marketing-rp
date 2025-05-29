@@ -4,9 +4,7 @@ import users from '@/fundamental/users/users.json';
 
 export async function POST(request: Request) {
     try {
-        const { searchParams } =  new URL(request.url);
-        const username =  searchParams.get('username');
-        const { password } = await request.json()
+        const { password, username } = await request.json()
         if (!password) {
             return NextResponse.json({ code: 401, status: 'failed', message: { en: "password is required", fa: "رمز عبور الزامی میباشد" } })
         } else if (password.length < 3) {
@@ -14,7 +12,7 @@ export async function POST(request: Request) {
         }
         const user = users?.find(user => user.username === username);
         if (!user) {
-            return NextResponse.json({ code: 404, status: 'failed',  message: { en: "user is not found", fa: "کاربر مورد نظر یافت نشد." } });
+            return NextResponse.json({ code: 404, status: 'failed', message: { en: "user is not found", fa: "کاربر مورد نظر یافت نشد." } });
         } else if (user?.password === password) {
             return NextResponse.json({ code: 200, status: 'successful', message: { en: "Login was successful", fa: "ورود با موفقیت انجام شد" } })
         } else {
